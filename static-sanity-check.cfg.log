@@ -1,0 +1,11 @@
+training language model
+lm training phase: 1
+2018-05-23 20:10:42
+Epoch: 1 Learning rate: 0.200
+2018-05-23 20:13:10
+Epoch: 1 Train Perplexity: 591.095
+2018-05-23 20:14:00
+Epoch: 1 Valid Perplexity: 556.052
+Saving model to model/.
+2018-05-23 20:14:02
+Epoch: 2 Learning rate: 0.200
