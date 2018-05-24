@@ -12,10 +12,7 @@ def word_id(data, vocab_path):
                 count = 0
                 for line in f.readlines():
                     word, _ = line.strip().split('\t')
-                    if word == '<EOS>':
-                        word = '<eos>'
-                    elif word == '<UNK>':
-                        word = '<unk>'
+                    word = word.lower()
                     f1.write(word + '##' + str(count) + '\n')
                     f2.write(word + '##' + str(count) + '\n')
                     count += 1
