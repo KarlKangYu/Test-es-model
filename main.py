@@ -125,7 +125,7 @@ def run_letter_epoch(session, data, word_model, letter_model, config, eval_op=No
     fetches_letter = {}
     previous_state = session.run(word_model.initial_state)
 
-    for step, (epoch_size, lm_data, letter_data, phrase_p_data, phrase_data) in \
+    for step, (epoch_size, lm_data, letter_data) in \
             enumerate(data_feeder.data_iterator(data, config)):
         if FLAGS.laptop_discount > 0 and step >= FLAGS.laptop_discount:
             break
