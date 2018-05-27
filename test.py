@@ -13,7 +13,7 @@ import numpy as np
 
 class InputEngineRnn:
 
-    def __init__(self, graph_file, vocab_path, full_vocab, config_name):
+    def __init__(self, graph_file, vocab_path, config_name):
 
         vocab_file_in_words = os.path.join(vocab_path, "vocab_in_words")
         vocab_file_in_letters = os.path.join(vocab_path, "vocab_in_letters")
@@ -23,8 +23,8 @@ class InputEngineRnn:
         self._config = Config()
         self._config.get_config(vocab_path, config_name)
         self._data_utility = DataUtility(vocab_file_in_words=vocab_file_in_words, vocab_file_in_letters=vocab_file_in_letters,
-                                         vocab_file_out=vocab_file_out, vocab_file_phrase=vocab_file_phrase,
-                                         full_vocab_file_in_words=full_vocab)
+                                         vocab_file_out=vocab_file_out, vocab_file_phrase=vocab_file_phrase
+                                         )
         print("in words vocabulary size = %d\nout words vocabulary size = %d\nin letters vocabulary size = %d"
               "\nphrase vocabulary size = %d" % (
                 self._config.vocab_size_in, self._config.vocab_size_out, self._config.vocab_size_letter,
@@ -104,58 +104,58 @@ class InputEngineRnn:
                 if word != '<unk>' else {'word': '<' + word_letters + '>', 'probability': float(probability)}
                 for word, probability in zip(words_out, probability_topk)] if len(words_out) > 0 else []
 
-    def predict_data(self, sentence, k):
-        global probabilities, top_k_predictions, probability_topk, probability_p_topk, phrase_p_top_k
-        sentence = sentence.rstrip()
-        words_line, letters_line, words_ids, letters_ids, words_num, letters_num = self._data_utility.data2ids_line(sentence)
-        out_str_list = []
-        probability_topk_list = []
-        # print(words_ids)
-        # print(letters_ids)
-        lm_state_out = np.zeros([self._config.num_layers, 2, 1, self._config.word_hidden_size], dtype=np.float32)
-        kc_state_out = np.zeros([self._config.num_layers, 2, 1, self._config.letter_hidden_size], dtype=np.float32)
-
-        for i in range(len(words_ids)):
-            words_out = []
-            probs_out = []
-            feed_values = {self.lm_input_name: [[words_ids[i]]]}
-            if i > 0:
-                feed_values[self.lm_state_in_name] = lm_state_out
-
-            lm_state_out, phrase_p_top_k, phrase_p_prob, phrase_logits = self._sess.run(
-                [self.lm_state_out_name, self.phrase_p_name, self.phrase_p_probability,
-                 self.phrase_logits], feed_dict=feed_values)
-            phrase_p_top_k = [id for id in phrase_p_top_k[0]]
-            probability_p_topk = [phrase_p_prob[0][id] for id in phrase_p_top_k]
-
-            if i == len(letters_ids):
-                break
-            for j in range(len(letters_ids[i])):
-                feed_values = {self.kc_input_name: [[letters_ids[i][j]]],
-                               self.kc_top_k_name: k, self.key_length:[1]}
-
-                if j == 0 and len(words_ids) > 0:
-                    feed_values[self.kc_lm_state_in_name] = lm_state_out
-                else:
-                    feed_values[self.kc_state_in_name] = kc_state_out
-                probabilities, top_k_predictions, kc_state_out = self._sess.run([self.kc_output_name, self.kc_top_k_prediction_name,
-                                                                              self.kc_state_out_name], feed_dict=feed_values)
-                probability_topk = [probabilities[0][id] for id in top_k_predictions[0]]
-                words = self._data_utility.ids2outwords(top_k_predictions[0])
-
-                if j == 0 and i > 0:
-                    top_word = words[0]
-                    top_phrase = self._data_utility.get_top_phrase(phrase_logits, top_word)
-                    if top_phrase[0] is not None:
-                        is_phrase_p, phrase_p = self.calculate_phrase_p(top_phrase, probability_p_topk, phrase_p_top_k)
-                        words, probability_topk = self.final_words_out(words, top_phrase, phrase_p, probability_topk)
-                words_out.append(words)
-                probs_out.append(probability_topk)
-            out_str = words_out if i > 0 else [['','','']] + words_out[1: ]
-            out_str_list.append(out_str)
-            probability_topk_list.append(probs_out)
-
-        return words_line, letters_line, out_str_list, probability_topk_list
+    # def predict_data(self, sentence, k):
+    #     global probabilities, top_k_predictions, probability_topk, probability_p_topk, phrase_p_top_k
+    #     sentence = sentence.rstrip()
+    #     words_line, letters_line, words_ids, letters_ids, words_num, letters_num = self._data_utility.data2ids_line(sentence)
+    #     out_str_list = []
+    #     probability_topk_list = []
+    #     # print(words_ids)
+    #     # print(letters_ids)
+    #     lm_state_out = np.zeros([self._config.num_layers, 2, 1, self._config.word_hidden_size], dtype=np.float32)
+    #     kc_state_out = np.zeros([self._config.num_layers, 2, 1, self._config.letter_hidden_size], dtype=np.float32)
+    #
+    #     for i in range(len(words_ids)):
+    #         words_out = []
+    #         probs_out = []
+    #         feed_values = {self.lm_input_name: [[words_ids[i]]]}
+    #         if i > 0:
+    #             feed_values[self.lm_state_in_name] = lm_state_out
+    #
+    #         lm_state_out, phrase_p_top_k, phrase_p_prob, phrase_logits = self._sess.run(
+    #             [self.lm_state_out_name, self.phrase_p_name, self.phrase_p_probability,
+    #              self.phrase_logits], feed_dict=feed_values)
+    #         phrase_p_top_k = [id for id in phrase_p_top_k[0]]
+    #         probability_p_topk = [phrase_p_prob[0][id] for id in phrase_p_top_k]
+    #
+    #         if i == len(letters_ids):
+    #             break
+    #         for j in range(len(letters_ids[i])):
+    #             feed_values = {self.kc_input_name: [[letters_ids[i][j]]],
+    #                            self.kc_top_k_name: k, self.key_length:[1]}
+    #
+    #             if j == 0 and len(words_ids) > 0:
+    #                 feed_values[self.kc_lm_state_in_name] = lm_state_out
+    #             else:
+    #                 feed_values[self.kc_state_in_name] = kc_state_out
+    #             probabilities, top_k_predictions, kc_state_out = self._sess.run([self.kc_output_name, self.kc_top_k_prediction_name,
+    #                                                                           self.kc_state_out_name], feed_dict=feed_values)
+    #             probability_topk = [probabilities[0][id] for id in top_k_predictions[0]]
+    #             words = self._data_utility.ids2outwords(top_k_predictions[0])
+    #
+    #             if j == 0 and i > 0:
+    #                 top_word = words[0]
+    #                 top_phrase = self._data_utility.get_top_phrase(phrase_logits, top_word)
+    #                 if top_phrase[0] is not None:
+    #                     is_phrase_p, phrase_p = self.calculate_phrase_p(top_phrase, probability_p_topk, phrase_p_top_k)
+    #                     words, probability_topk = self.final_words_out(words, top_phrase, phrase_p, probability_topk)
+    #             words_out.append(words)
+    #             probs_out.append(probability_topk)
+    #         out_str = words_out if i > 0 else [['','','']] + words_out[1: ]
+    #         out_str_list.append(out_str)
+    #         probability_topk_list.append(probs_out)
+    #
+    #     return words_line, letters_line, out_str_list, probability_topk_list
 
     def calculate_phrase_p(self, top_phrase, probability_p_topk, phrase_p_top_k):
         is_phrase_p = probability_p_topk[phrase_p_top_k.index(1)]
@@ -178,36 +178,91 @@ class InputEngineRnn:
         string = string[:-1]
         return string
 
+    # def predict_file(self, test_file_in, test_file_out, k):
+    #     testfilein = open(test_file_in, "r")
+    #     testfileout = open(test_file_out, 'w')
+    #     t1 = time.time()
+    #
+    #     for sentence in testfilein:
+    #         sentence = sentence.rstrip()
+    #         result = self.predict_data(sentence, k)
+    #
+    #         if result is not None:
+    #             words_line, letters_line, out_words_list, out_prob_list = result
+    #
+    #             for i in range(len(out_words_list)):
+    #                 print("\t".join(words_line[:i])
+    #                      + "|#|" + letters_line[i]
+    #                      + "|#|" + "\t".join(words_line[i:]) + "|#|"
+    #                       + '\t'.join([self.result_print(out_words, out_prob)
+    #                                    for (out_words, out_prob) in zip(out_words_list[i], out_prob_list[i])])
+    #                       + "\n")
+    #                 testfileout.write("\t".join(words_line[:i])
+    #                                   + "|#|" + letters_line[i]
+    #                                   + "|#|" + "\t".join(words_line[i:]) + "|#|"
+    #                                   + '\t'.join([self.result_print(out_words, out_prob)
+    #                                         for (out_words, out_prob) in zip(out_words_list[i], out_prob_list[i])])
+    #                                   + "\n")
+    #
+    #     t2 = time.time()
+    #     print(t2 - t1)
+    #     testfilein.close()
+    #     testfileout.close()
+
+    def predict_data(self, sentence, k):
+        sentence = sentence.rstrip()
+        inputs, inputs_key, words_num, letters_num = self._data_utility.data2ids_line(sentence)#上下文的id，要预测的单词的键码部分id，上下文单词数，要预测的单词的字母数
+        words_out = []
+        lm_state = np.zeros([self._config.num_layers, 2, 1, self._config.word_hidden_size], dtype=np.float32)
+        kc_state = np.zeros([self._config.num_layers, 2, 1, self._config.letter_hidden_size], dtype=np.float32)
+        if len(inputs) > 0:
+            for i in range(len(inputs)):
+                feed_values = {self.lm_input_name: [[inputs[i]]]}
+                if i > 0:
+                    feed_values[self.lm_state_in_name] = lm_state
+                # probabilities is an ndarray of shape (batch_size * time_step) * vocab_size
+                # For inference, batch_size = num_step = 1, thus probabilities.shape = 1 * vocab_size
+                result = self._sess.run([self.lm_state_out_name], feed_dict=feed_values)
+                lm_state = result[0]
+                #probability_topk = [probabilities[0][id] for id in top_k_predictions[0]]
+                #words = self._data_utility.ids2outwords(top_k_predictions[0])
+                #words_out.append(words)
+
+        for i in range(len(inputs_key)):
+            feed_values = {self.kc_input_name: [[inputs_key[i]]],
+                           self.kc_top_k_name: k}
+            if i > 0 or len(inputs) == 0:
+                feed_values[self.kc_state_in_name] = kc_state
+            else:
+                feed_values[self.kc_lm_state_in_name] = lm_state
+            #print (state_out)
+            probabilities, top_k_predictions, kc_state = self._sess.run([self.kc_output_name, self.kc_top_k_prediction_name,
+                                                                          self.kc_state_out_name], feed_dict=feed_values)
+            probability_topk = [probabilities[0][id] for id in top_k_predictions[0]]
+            words = self._data_utility.ids2outwords(top_k_predictions[0])
+            words_out.append(words)
+        out_str = str(words_out if words_num > 0 else [['', '', '']] + words_out[1: ])
+        return out_str
+
     def predict_file(self, test_file_in, test_file_out, k):
         testfilein = open(test_file_in, "r")
         testfileout = open(test_file_out, 'w')
         t1 = time.time()
-      
+        topk = k
         for sentence in testfilein:
             sentence = sentence.rstrip()
-            result = self.predict_data(sentence, k)
-
-            if result is not None:
-                words_line, letters_line, out_words_list, out_prob_list = result
-
-                for i in range(len(out_words_list)):
-                    print("\t".join(words_line[:i])
-                         + "|#|" + letters_line[i]
-                         + "|#|" + "\t".join(words_line[i:]) + "|#|"
-                          + '\t'.join([self.result_print(out_words, out_prob)
-                                       for (out_words, out_prob) in zip(out_words_list[i], out_prob_list[i])])
-                          + "\n")
-                    testfileout.write("\t".join(words_line[:i])
-                                      + "|#|" + letters_line[i]
-                                      + "|#|" + "\t".join(words_line[i:]) + "|#|"
-                                      + '\t'.join([self.result_print(out_words, out_prob)
-                                            for (out_words, out_prob) in zip(out_words_list[i], out_prob_list[i])])
-                                      + "\n")
-
+            out_str = self.predict_data(sentence, topk)
+            if (out_str):
+                print (sentence + " | " + out_str)
+                testfileout.write(sentence + " | " + out_str + "\n")
+            else:
+                print ("predict error : " + sentence)
         t2 = time.time()
         print(t2 - t1)
         testfilein.close()
         testfileout.close()
+
+
 
 
 if __name__ == "__main__":
@@ -215,11 +270,11 @@ if __name__ == "__main__":
 
     graph_file = args[1]
     vocab_path = args[2]
-    full_vocab = args[3]
-    config_name = args[4]
-    test_file_in = args[5]
+    #full_vocab = args[3]
+    config_name = args[3]
+    test_file_in = args[4]
     test_file_out = "test_result"
-    engine = InputEngineRnn(graph_file, vocab_path, full_vocab, config_name)
+    engine = InputEngineRnn(graph_file, vocab_path, config_name)
     engine.predict_file(test_file_in, test_file_out, 3)
 
     # while True:

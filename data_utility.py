@@ -145,15 +145,26 @@ class DataUtility:
     def phrase2id(self, phrases):
         return [self.token2id_phrase.get(phrase, 0) for phrase in phrases]
 
+    # def data2ids_line(self, data_line):
+    #     data_line_split = re.split("\\|#\\|", data_line)
+    #     letters_line = data_line_split[0].split("\t")
+    #     words_line = data_line_split[1].strip().split("\t")
+    #     words_ids = self.words2ids(words_line)
+    #     letters_ids = [self.letters2ids(letters) for letters in letters_line]
+    #     words_num = len(words_ids)
+    #     letters_num = [len(letter_ids) for letter_ids in letters_ids]
+    #     return words_line, letters_line, words_ids, letters_ids, words_num, letters_num
+
     def data2ids_line(self, data_line):
-        data_line_split = re.split("\\|#\\|", data_line)
-        letters_line = data_line_split[0].split("\t")
-        words_line = data_line_split[1].strip().split("\t")
-        words_ids = self.words2ids(words_line)
-        letters_ids = [self.letters2ids(letters) for letters in letters_line]
+        data_line_split = re.split("\\t+", data_line)#分成三部分，第一部分是上下文，第二部分是要预测的部分的键码部分，第三部分是要预测的真实单词
+        words = data_line_split[0].strip()
+        letters = data_line_split[1].strip()
+        letters = letters[3 : len(letters) - 4].strip()#去除掉前后的<b>，变成单纯的键码部分
+        words_ids = self.words2ids(words)
+        letters_ids = self.letters2ids(letters)
         words_num = len(words_ids)
-        letters_num = [len(letter_ids) for letter_ids in letters_ids]
-        return words_line, letters_line, words_ids, letters_ids, words_num, letters_num
+        letters_num = len(letters_ids)
+        return words_ids, letters_ids, words_num, letters_num
 
     def sentence2ids(self, sentence):
         words_array = re.split('\\s+', sentence)
