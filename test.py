@@ -250,8 +250,9 @@ class InputEngineRnn:
         t1 = time.time()
         topk = k
         for sentence in testfilein:
-            sentence = sentence.rstrip().lower()
-            out_str = self.predict_data(sentence, topk)
+            sentence = sentence.rstrip()
+            sentence_in = sentence.lower()
+            out_str = self.predict_data(sentence_in, topk)
             if (out_str):
                 print (sentence + " | " + out_str)
                 testfileout.write(sentence + " | " + out_str + "\n")
