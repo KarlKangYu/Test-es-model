@@ -250,7 +250,7 @@ class InputEngineRnn:
         t1 = time.time()
         topk = k
         for sentence in testfilein:
-            sentence = sentence.rstrip()
+            sentence = sentence.rstrip().lower()
             out_str = self.predict_data(sentence, topk)
             if (out_str):
                 print (sentence + " | " + out_str)
@@ -276,6 +276,11 @@ if __name__ == "__main__":
     test_file_out = "test_result"
     engine = InputEngineRnn(graph_file, vocab_path, config_name)
     engine.predict_file(test_file_in, test_file_out, 3)
+
+
+
+
+
 
     # while True:
     #     sentence = input("please enter sentence:")
