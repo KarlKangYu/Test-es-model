@@ -12,8 +12,8 @@ def word_id(data, vocab_path):
                 count = 0
                 for line in f.readlines():
                     word, _ = line.strip().split('\t')
-                    word = word.lower()
-                    f1.write(word + '##' + str(count) + '\n')
+                    word_lower = word.lower()
+                    f1.write(word_lower + '##' + str(count) + '\n')
                     f2.write(word + '##' + str(count) + '\n')
                     count += 1
 

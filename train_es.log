@@ -1,0 +1,207 @@
+2018-05-28 16:58:59.346418: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+/anaconda3/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: compiletime version 3.5 of module 'tensorflow.python.framework.fast_tensor_util' does not match runtime version 3.6
+  return f(*args, **kwds)
+/anaconda3/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+WARNING:tensorflow:From /Users/xm180428/Desktop/Test/dl-tensorflow-dev-split_model/seq2word_word_letter_separated_v2/seq2word_word_letter_separated/seq2word_rnn_model.py:181: get_or_create_global_step (from tensorflow.contrib.framework.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.get_or_create_global_step
+train data size:  20000
+dev data size:  20000
+in words vocabulary size = 20000
+out words vocabulary size = 20000
+in letters vocabulary size = 520
+phrase vocabulary size = 2000
+output shape: (800, 150)
+state shape: (2, 2, 800, 150)
+output shape: (800, 150)
+state shape: (2, 2, 800, 150)
+output shape: (1, 150)
+state shape: (2, 2, 1, 150)
+store: WordModel/Lm/Embedding/embedding:0
+store: WordModel/Lm/Embedding/embedding_to_rnn:0
+store: WordModel/Lm/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0
+store: WordModel/Lm/RNN/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0
+store: WordModel/Lm/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0
+store: WordModel/Lm/RNN/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0
+store: WordModel/Lm/Softmax/rnn_output_to_final_output:0
+store: WordModel/Lm/Softmax/softmax_w:0
+store: WordModel/Lm/Softmax/softmax_b:0
+store: LetterModel/StateMatrix/lm_state_to_letter_state:0
+store: LetterModel/Embedding/embedding:0
+store: LetterModel/Embedding/embedding_to_rnn:0
+store: LetterModel/RNN/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0
+store: LetterModel/RNN/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0
+store: LetterModel/RNN/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0
+store: LetterModel/RNN/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0
+store: LetterModel/Softmax/rnn_output_to_final_output:0
+store: LetterModel/Softmax/softmax_w:0
+store: LetterModel/Softmax/softmax_b:0
+Created model with fresh parameters.
+training language model.
+lm training phase: 1
+[2018-05-28 16:59:07] 0.000 word ppl: 20139.469  speed: 409 wps
+[2018-05-28 16:59:09] 0.008 word ppl: 20098.896  speed: 713 wps
+[2018-05-28 16:59:10] 0.016 word ppl: 20049.970  speed: 835 wps
+[2018-05-28 16:59:11] 0.025 word ppl: 19973.443  speed: 891 wps
+[2018-05-28 16:59:13] 0.033 word ppl: 19714.345  speed: 924 wps
+[2018-05-28 16:59:14] 0.041 word ppl: 18228.239  speed: 951 wps
+[2018-05-28 16:59:16] 0.049 word ppl: 15666.024  speed: 975 wps
+[2018-05-28 16:59:17] 0.057 word ppl: 12952.713  speed: 992 wps
+[2018-05-28 16:59:19] 0.066 word ppl: 10316.915  speed: 1008 wps
+[2018-05-28 16:59:20] 0.074 word ppl: 8131.157  speed: 1020 wps
+[2018-05-28 16:59:21] 0.082 word ppl: 6500.912  speed: 1029 wps
+[2018-05-28 16:59:23] 0.090 word ppl: 5427.136  speed: 1034 wps
+[2018-05-28 16:59:24] 0.098 word ppl: 4680.142  speed: 1039 wps
+[2018-05-28 16:59:26] 0.107 word ppl: 4167.525  speed: 1045 wps
+[2018-05-28 16:59:27] 0.115 word ppl: 3765.629  speed: 1052 wps
+[2018-05-28 16:59:29] 0.123 word ppl: 3437.807  speed: 1057 wps
+[2018-05-28 16:59:30] 0.131 word ppl: 3153.231  speed: 1061 wps
+[2018-05-28 16:59:31] 0.139 word ppl: 2926.473  speed: 1065 wps
+[2018-05-28 16:59:33] 0.148 word ppl: 2714.714  speed: 1069 wps
+[2018-05-28 16:59:34] 0.156 word ppl: 2531.087  speed: 1072 wps
+[2018-05-28 16:59:36] 0.164 word ppl: 2380.147  speed: 1075 wps
+[2018-05-28 16:59:37] 0.172 word ppl: 2257.083  speed: 1078 wps
+[2018-05-28 16:59:38] 0.180 word ppl: 2129.855  speed: 1080 wps
+[2018-05-28 16:59:40] 0.189 word ppl: 2025.139  speed: 1081 wps
+[2018-05-28 16:59:41] 0.197 word ppl: 1938.256  speed: 1082 wps
+[2018-05-28 16:59:43] 0.205 word ppl: 1856.030  speed: 1084 wps
+[2018-05-28 16:59:44] 0.213 word ppl: 1779.950  speed: 1086 wps
+[2018-05-28 16:59:46] 0.221 word ppl: 1708.653  speed: 1086 wps
+[2018-05-28 16:59:47] 0.230 word ppl: 1648.893  speed: 1088 wps
+[2018-05-28 16:59:48] 0.238 word ppl: 1593.748  speed: 1090 wps
+[2018-05-28 16:59:50] 0.246 word ppl: 1542.970  speed: 1091 wps
+[2018-05-28 16:59:51] 0.254 word ppl: 1497.361  speed: 1092 wps
+[2018-05-28 16:59:53] 0.262 word ppl: 1452.472  speed: 1093 wps
+[2018-05-28 16:59:54] 0.270 word ppl: 1416.903  speed: 1095 wps
+[2018-05-28 16:59:56] 0.279 word ppl: 1383.082  speed: 1096 wps
+[2018-05-28 16:59:57] 0.287 word ppl: 1349.166  speed: 1097 wps
+[2018-05-28 16:59:58] 0.295 word ppl: 1322.082  speed: 1097 wps
+[2018-05-28 17:00:00] 0.303 word ppl: 1293.728  speed: 1097 wps
+[2018-05-28 17:00:01] 0.311 word ppl: 1264.603  speed: 1097 wps
+[2018-05-28 17:00:03] 0.320 word ppl: 1242.793  speed: 1098 wps
+[2018-05-28 17:00:04] 0.328 word ppl: 1222.892  speed: 1099 wps
+[2018-05-28 17:00:06] 0.336 word ppl: 1203.830  speed: 1098 wps
+[2018-05-28 17:00:07] 0.344 word ppl: 1181.504  speed: 1099 wps
+[2018-05-28 17:00:08] 0.352 word ppl: 1164.324  speed: 1100 wps
+[2018-05-28 17:00:10] 0.361 word ppl: 1147.431  speed: 1101 wps
+[2018-05-28 17:00:11] 0.369 word ppl: 1129.705  speed: 1101 wps
+[2018-05-28 17:00:13] 0.377 word ppl: 1113.149  speed: 1102 wps
+[2018-05-28 17:00:14] 0.385 word ppl: 1100.902  speed: 1103 wps
+[2018-05-28 17:00:15] 0.393 word ppl: 1087.346  speed: 1103 wps
+[2018-05-28 17:00:17] 0.402 word ppl: 1078.392  speed: 1104 wps
+[2018-05-28 17:00:18] 0.410 word ppl: 1066.183  speed: 1104 wps
+[2018-05-28 17:00:20] 0.418 word ppl: 1054.881  speed: 1105 wps
+[2018-05-28 17:00:21] 0.426 word ppl: 1043.301  speed: 1105 wps
+[2018-05-28 17:00:23] 0.434 word ppl: 1032.437  speed: 1106 wps
+[2018-05-28 17:00:24] 0.443 word ppl: 1023.148  speed: 1106 wps
+[2018-05-28 17:00:25] 0.451 word ppl: 1011.814  speed: 1107 wps
+[2018-05-28 17:00:27] 0.459 word ppl: 1002.729  speed: 1108 wps
+[2018-05-28 17:00:28] 0.467 word ppl: 993.432  speed: 1108 wps
+[2018-05-28 17:00:30] 0.475 word ppl: 984.290  speed: 1109 wps
+[2018-05-28 17:00:31] 0.484 word ppl: 975.469  speed: 1109 wps
+[2018-05-28 17:00:32] 0.492 word ppl: 968.736  speed: 1109 wps
+[2018-05-28 17:00:34] 0.500 word ppl: 961.594  speed: 1110 wps
+[2018-05-28 17:00:35] 0.508 word ppl: 954.096  speed: 1110 wps
+[2018-05-28 17:00:37] 0.516 word ppl: 946.628  speed: 1111 wps
+[2018-05-28 17:00:38] 0.525 word ppl: 940.291  speed: 1111 wps
+[2018-05-28 17:00:39] 0.533 word ppl: 934.238  speed: 1111 wps
+[2018-05-28 17:00:41] 0.541 word ppl: 928.237  speed: 1111 wps
+[2018-05-28 17:00:42] 0.549 word ppl: 923.051  speed: 1111 wps
+[2018-05-28 17:00:44] 0.557 word ppl: 916.307  speed: 1112 wps
+[2018-05-28 17:00:45] 0.566 word ppl: 910.083  speed: 1112 wps
+[2018-05-28 17:00:47] 0.574 word ppl: 903.883  speed: 1112 wps
+[2018-05-28 17:00:48] 0.582 word ppl: 898.939  speed: 1112 wps
+[2018-05-28 17:00:49] 0.590 word ppl: 893.892  speed: 1113 wps
+[2018-05-28 17:00:51] 0.598 word ppl: 888.635  speed: 1113 wps
+[2018-05-28 17:00:52] 0.607 word ppl: 885.064  speed: 1113 wps
+[2018-05-28 17:00:54] 0.615 word ppl: 881.267  speed: 1113 wps
+[2018-05-28 17:00:55] 0.623 word ppl: 877.508  speed: 1114 wps
+[2018-05-28 17:00:56] 0.631 word ppl: 872.372  speed: 1114 wps
+[2018-05-28 17:00:58] 0.639 word ppl: 868.433  speed: 1114 wps
+[2018-05-28 17:00:59] 0.648 word ppl: 863.777  speed: 1115 wps
+[2018-05-28 17:01:01] 0.656 word ppl: 858.732  speed: 1115 wps
+[2018-05-28 17:01:02] 0.664 word ppl: 855.586  speed: 1115 wps
+[2018-05-28 17:01:03] 0.672 word ppl: 851.454  speed: 1115 wps
+[2018-05-28 17:01:05] 0.680 word ppl: 847.669  speed: 1116 wps
+[2018-05-28 17:01:06] 0.689 word ppl: 842.626  speed: 1116 wps
+[2018-05-28 17:01:08] 0.697 word ppl: 839.094  speed: 1116 wps
+[2018-05-28 17:01:09] 0.705 word ppl: 834.860  speed: 1116 wps
+[2018-05-28 17:01:11] 0.713 word ppl: 831.587  speed: 1116 wps
+[2018-05-28 17:01:12] 0.721 word ppl: 828.655  speed: 1116 wps
+[2018-05-28 17:01:13] 0.730 word ppl: 825.115  speed: 1117 wps
+[2018-05-28 17:01:15] 0.738 word ppl: 820.960  speed: 1117 wps
+[2018-05-28 17:01:16] 0.746 word ppl: 818.096  speed: 1117 wps
+[2018-05-28 17:01:18] 0.754 word ppl: 815.026  speed: 1117 wps
+[2018-05-28 17:01:19] 0.762 word ppl: 811.460  speed: 1117 wps
+[2018-05-28 17:01:20] 0.770 word ppl: 808.694  speed: 1118 wps
+[2018-05-28 17:01:22] 0.779 word ppl: 806.690  speed: 1118 wps
+[2018-05-28 17:01:23] 0.787 word ppl: 804.959  speed: 1118 wps
+[2018-05-28 17:01:25] 0.795 word ppl: 802.198  speed: 1118 wps
+[2018-05-28 17:01:26] 0.803 word ppl: 798.750  speed: 1118 wps
+[2018-05-28 17:01:27] 0.811 word ppl: 795.661  speed: 1119 wps
+[2018-05-28 17:01:29] 0.820 word ppl: 793.715  speed: 1119 wps
+[2018-05-28 17:01:30] 0.828 word ppl: 791.346  speed: 1119 wps
+[2018-05-28 17:01:32] 0.836 word ppl: 788.009  speed: 1119 wps
+[2018-05-28 17:01:33] 0.844 word ppl: 786.496  speed: 1120 wps
+[2018-05-28 17:01:34] 0.852 word ppl: 784.188  speed: 1120 wps
+[2018-05-28 17:01:36] 0.861 word ppl: 781.788  speed: 1120 wps
+[2018-05-28 17:01:37] 0.869 word ppl: 779.135  speed: 1120 wps
+[2018-05-28 17:01:39] 0.877 word ppl: 776.985  speed: 1120 wps
+[2018-05-28 17:01:40] 0.885 word ppl: 775.235  speed: 1120 wps
+[2018-05-28 17:01:41] 0.893 word ppl: 773.045  speed: 1121 wps
+[2018-05-28 17:01:43] 0.902 word ppl: 770.706  speed: 1120 wps
+[2018-05-28 17:01:44] 0.910 word ppl: 768.835  speed: 1121 wps
+[2018-05-28 17:01:46] 0.918 word ppl: 766.356  speed: 1121 wps
+[2018-05-28 17:01:47] 0.926 word ppl: 764.231  speed: 1121 wps
+[2018-05-28 17:01:49] 0.934 word ppl: 762.418  speed: 1121 wps
+[2018-05-28 17:01:50] 0.943 word ppl: 760.761  speed: 1121 wps
+[2018-05-28 17:01:51] 0.951 word ppl: 759.170  speed: 1121 wps
+[2018-05-28 17:01:53] 0.959 word ppl: 757.346  speed: 1121 wps
+[2018-05-28 17:01:54] 0.967 word ppl: 756.115  speed: 1122 wps
+[2018-05-28 17:01:56] 0.975 word ppl: 754.221  speed: 1122 wps
+[2018-05-28 17:01:57] 0.984 word ppl: 752.933  speed: 1122 wps
+[2018-05-28 17:01:58] 0.992 word ppl: 751.365  speed: 1122 wps
+[2018-05-28 17:03:01] Begin exporting lm graph!
+Converted 9 variables to const ops.
+Graph is saved to:  graph_es/static-sanity-check.cfg-iter0-lm.pb
+Converted 15 variables to const ops.
+Graph is saved to:  graph_es/static-sanity-check.cfg-iter0-kc_slim.pb
+[2018-05-28 17:03:01] Finish exporting lm graph!
+lm training phase: 1
+[2018-05-28 17:03:03] 0.000 word ppl: 876.014  speed: 597 wps
+[2018-05-28 17:03:04] 0.008 word ppl: 675.451  speed: 869 wps
+[2018-05-28 17:03:06] 0.016 word ppl: 631.315  speed: 959 wps
+[2018-05-28 17:03:07] 0.025 word ppl: 596.722  speed: 1003 wps
+[2018-05-28 17:03:09] 0.033 word ppl: 587.709  speed: 1028 wps
+[2018-05-28 17:03:10] 0.041 word ppl: 578.398  speed: 1045 wps
+[2018-05-28 17:03:11] 0.049 word ppl: 567.612  speed: 1059 wps
+[2018-05-28 17:03:13] 0.057 word ppl: 564.205  speed: 1069 wps
+[2018-05-28 17:03:14] 0.066 word ppl: 557.332  speed: 1076 wps
+[2018-05-28 17:03:16] 0.074 word ppl: 555.019  speed: 1083 wps
+[2018-05-28 17:03:17] 0.082 word ppl: 548.967  speed: 1087 wps
+[2018-05-28 17:03:18] 0.090 word ppl: 546.992  speed: 1091 wps
+[2018-05-28 17:03:20] 0.098 word ppl: 545.270  speed: 1094 wps
+[2018-05-28 17:03:21] 0.107 word ppl: 545.079  speed: 1096 wps
+[2018-05-28 17:03:23] 0.115 word ppl: 543.873  speed: 1097 wps
+[2018-05-28 17:03:24] 0.123 word ppl: 542.363  speed: 1100 wps
+[2018-05-28 17:03:25] 0.131 word ppl: 541.396  speed: 1101 wps
+[2018-05-28 17:03:27] 0.139 word ppl: 542.249  speed: 1103 wps
+[2018-05-28 17:03:28] 0.148 word ppl: 541.038  speed: 1106 wps
+[2018-05-28 17:03:30] 0.156 word ppl: 539.861  speed: 1108 wps
+[2018-05-28 17:03:31] 0.164 word ppl: 539.771  speed: 1107 wps
+[2018-05-28 17:03:33] 0.172 word ppl: 540.616  speed: 1107 wps
+[2018-05-28 17:03:34] 0.180 word ppl: 537.226  speed: 1107 wps
+[2018-05-28 17:03:35] 0.189 word ppl: 536.363  speed: 1108 wps
+[2018-05-28 17:03:37] 0.197 word ppl: 536.655  speed: 1107 wps
+[2018-05-28 17:03:38] 0.205 word ppl: 535.543  speed: 1107 wps
+[2018-05-28 17:03:40] 0.213 word ppl: 534.717  speed: 1106 wps
+[2018-05-28 17:03:41] 0.221 word ppl: 532.811  speed: 1107 wps
+[2018-05-28 17:03:43] 0.230 word ppl: 532.464  speed: 1107 wps
+[2018-05-28 17:03:44] 0.238 word ppl: 531.286  speed: 1108 wps
+[2018-05-28 17:03:46] 0.246 word ppl: 530.273  speed: 1108 wps
+[2018-05-28 17:03:47] 0.254 word ppl: 529.368  speed: 1108 wps
+[2018-05-28 17:03:48] 0.262 word ppl: 527.418  speed: 1108 wps
+[2018-05-28 17:03:50] 0.270 word ppl: 527.251  speed: 1108 wps
+[2018-05-28 17:03:51] 0.279 word ppl: 526.523  speed: 1108 wps
+./train.sh: line 8:  3075 Terminated: 15          python3 main.py --save_path=${save_path} --graph_save_path=${graph_save_path} --data_path=${data_vocab_path} --vocab_path=${data_vocab_path} --model_config=${config}

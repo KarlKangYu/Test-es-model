@@ -122,7 +122,7 @@ class DataUtility:
         return rid
 
     def words2ids(self, words):
-        words = re.split("\\s+", words)
+        #words = re.split("\\s+", words)
         return [self.eos_id] + [self.word2id(word) for word in words if len(word) > 0]
 
     def letters2ids(self, letters):
